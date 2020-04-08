@@ -35,3 +35,8 @@ public:
         return false;                           // if control reaches here implies all the elements occured only once in the vector
     }
 };
+
+/*
+TC = O(n)
+SC = O(n)
+*/
