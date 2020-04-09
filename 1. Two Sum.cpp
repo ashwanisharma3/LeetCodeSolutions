@@ -1,0 +1,38 @@
+/*
+Link: https://leetcode.com/problems/two-sum/
+
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Example:
+
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+*/
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        
+        int n = nums.size();
+        int i = 0, j = n - 1;
+        map<int, int>myMap;
+        vector <int> ans;
+        for (i = 0; i < n; i++) {
+            myMap[nums[i]] = i;                 // saving the index of all numbers
+        }
+        
+        for (i = 0; i < n; i++) {
+            int x = myMap[target - nums[i]];    // index of the required value
+            if(x && x!=i) {                     // if there exist the index in map and index not equal to i
+                ans.push_back(i);
+                ans.push_back(x);
+                return ans;
+            }
+        }
+        return ans;
+    }
+};
