@@ -19,23 +19,33 @@ What if the inputs contain unicode characters? How would you adapt your solution
 
 */
 
+// Solution 1
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        sort(s.begin(), s.end());
-        sort(t.begin(), t.end());
-        if(s == t)
+        sort(s.begin(), s.end());       // sorting s
+        sort(t.begin(), t.end());       // sorting t
+        if(s == t)                      // comparing them
             return true;
         return false;   
     }
 };
 
 /*
-TC = O(n)
+TC = O(n log n)
 SC = O(1)
 */
 
+
+// Solution 2
+
+
+
+/*
+TC = 
+SC = 
+*/
 /*
 Follow Up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?
-- We can remove the characters other than alphabet and then perform the same operation.
+- We can use map for that purpose
