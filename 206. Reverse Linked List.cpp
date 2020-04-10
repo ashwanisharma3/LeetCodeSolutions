@@ -54,20 +54,25 @@ class Solution {
 public:
     ListNode* head1 = NULL;                     // declaring a global variable head1
     ListNode* reverse(ListNode *head) {
-        if(!head -> next) {                     // if we are at the last node
+        if (!head -> next) {                     // if we are at the last node
             head1 = head;
             return head;
         }
+
         ListNode * p = head;
         ListNode *temp = reverse(p -> next);    // calling the reverse function on next of p
         temp -> next = p;                       // temp is the next node of p, hence saving p in the next of it
         p -> next = NULL;                       // making the next of p NULL
+        
         return p;
     }
+
     ListNode* reverseList(ListNode* head) {
-        if(!head || !head->next)                // if either list is empty or there is only one element
+        if (!head || !head->next)                // if either list is empty or there is only one element
             return head;
+        
         reverse(head);
+        
         return head1;                           // returning head1, declared globally
     }
 };

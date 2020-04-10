@@ -39,14 +39,19 @@ The number of nodes in the given list will be between 1 and 100.
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-		ListNode *fast = head, *slow = head;	// declaring two pointer slow and fast
-        										// while slow will move one node, fast would have move two node
+	ListNode *fast = head, *slow = head;	// declaring two pointer slow and fast
+        					// while slow will move one node, fast would have move two node
 
-        while(fast && fast->next) {				// These two condition cover even length and odd length senerios respectively
-            fast = fast -> next -> next;		// moving fast by two nodes
-            slow = slow -> next;				// moving slow to its next node
+        while(fast && fast->next) {		// These two condition cover even length and odd length senerios respectively
+            fast = fast -> next -> next;	// moving fast by two nodes
+            slow = slow -> next;		// moving slow to its next node
         }
      
-        return slow;							// returning the slow node
+        return slow;			         // returning the slow node
     }
 };
+
+/*
+TC = O(n)
+SC = O(1)
+*/
