@@ -35,7 +35,7 @@ Follow up: Solve it both recursively and iteratively.
  * };
  */
 
-// Recursively
+// Recursive Approach
 
 class Solution {
 public:
@@ -68,7 +68,7 @@ SC = O(n)
 */
 
 
-// Iteratively
+// Iterative Approach
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {

@@ -56,5 +56,89 @@ public:
 };
 
 
-// Using reverse of Linked List
+// Recursive Solution
+// The approaches uses the concept that once we reach that last node of the list, we hace acces to first and last node.
+// Then, we compare them and if they are equal, we compare the next of first and second last from the last.
 
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(!head || !head -> next)                      // if there either no node or signle node
+            return true;
+        
+        return checkPalin(&head, head->next);           
+    }
+    
+    bool checkPalin (ListNode **first, ListNode *last) {
+        if(!last) {                                     // when we have reached the last node of the list
+            return true;
+        }
+        
+        bool isPalin = checkPalin (first, last -> next);// calling for the next of last
+        
+        if (!isPalin) { 
+            return false;
+        }
+        
+        isPalin = (*first) -> val == last -> val;       // checking for the value of
+        
+        *first = (*first) -> next;
+            
+        return isPalin;
+    }
+};
+
+/*
+TC = O(n)
+SC = O(n)
+*/
+
+// In place by reversing the second half of the list
+// The approach uses the concept of reversing the second half of the list and then comparing its first element
+// to first element of original list and so on.
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if (!head || !head -> next)
+            return true;
+        if (!head -> next -> next) {
+            return head -> val == head -> next -> val;
+        }
+        
+        ListNode *ptr = head, *fast = head, *slow = NULL;
+        
+        while(fast && fast -> next) {
+            fast = fast -> next -> next;
+            if (!slow)
+                slow = head;
+            else
+                slow = slow -> next;
+        }
+        if (fast) {
+            slow = slow -> next;
+        }
+        slow -> next = reverse(slow -> next);
+        slow = slow -> next;
+        while (slow) {
+            if (ptr -> val != slow -> val)
+                return false;
+            slow = slow -> next;
+            ptr = ptr -> next;
+        }
+        
+        return true;
+        
+    }
+    
+    ListNode* reverse (ListNode* head) {
+        ListNode *prev = NULL, *curr = head, *next = NULL;
+        
+        while(curr) {
+            next = curr -> next;
+            curr -> next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+};

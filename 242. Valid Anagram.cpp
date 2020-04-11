@@ -19,7 +19,7 @@ What if the inputs contain unicode characters? How would you adapt your solution
 
 */
 
-// Solution 1
+// Solution 1 - using sorting
 class Solution {
 public:
     bool isAnagram(string s, string t) {
@@ -39,13 +39,38 @@ SC = O(1)
 
 // Solution 2
 
-
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int i, n = s.size(), m = t.size();
+        
+        if (n != m) {
+            return false;
+        }
+        
+        map<int, int>mp;
+        
+        for (i = 0; i < n; i++) {
+            mp[s[i]]++;
+        }
+        
+        for (i = 0; i < m; i++) {
+            if (!mp[t[i]]){
+                return false;
+            } else {
+                mp[t[i]]--;
+            }    
+        }
+        return true;
+    }
+};
 
 /*
-TC = 
-SC = 
+TC = O(n)
+SC = O(1)       space complexity is constant as the input if english alphabet hence.
 */
 /*
 Follow Up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?
 - We can use map for that purpose
+*/
