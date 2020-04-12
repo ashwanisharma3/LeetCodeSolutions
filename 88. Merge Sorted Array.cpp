@@ -19,16 +19,17 @@ Output: [1,2,2,3,5,6]
 class Solution {
 public:
     void merge(vector<int>& a, int m, vector<int>& b, int n) {
-        int i = 0, j, len = m;
+        int i = 0, j, len = m;              // i - index for b; j - index for a
         
-        for (i = 0; i < n; i++) {
-            j = len - 1;
-            while(j >= 0 && a[j] > b[i]){
-                a[j + 1] = a[j];
+        while (i < n) {                     // traversing array b from left
+            j = len - 1;                    // traversing array a from the index where last element is present
+            while(j >= 0 && a[j] > b[i]){   // until smaller is found
+                a[j + 1] = a[j];            // copying current to next index
                 j--;
             }
-            a[j + 1] = b[i];
+            a[j + 1] = b[i];                // saving the element from b to a at index i
             len++;
+            i++;
         }
     }
 };

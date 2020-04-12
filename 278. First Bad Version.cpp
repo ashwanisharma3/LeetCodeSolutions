@@ -26,6 +26,7 @@ public:
         long long start = 0;
         long long end = n, mid;
         
+        // binary Search
         while (start <= end) {
             mid = ((start + end) / 2);
             if(isBadVersion(mid) && !isBadVersion(mid - 1)) {
