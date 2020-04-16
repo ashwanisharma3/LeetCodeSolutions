@@ -19,7 +19,47 @@ Input: "pwwkew"
 Output: 3
 Explanation: The answer is "wke", with the length of 3. 
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
-			 */
+*/
+
+// Soltuion 1 : Using Map
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxSoFar = 0, i, start = 0, currMax = 0, len = s.length();
+        
+        if (!len)
+            return 0;
+
+        map<char, int> mp;			// map to store the recent index of the char
+        mp[s[0]] = 0;				// first char
+        
+        for (i = 1; i < len; i++) {
+            if (mp.find(s[i]) != mp.end()) 
+            {	// if the char is present
+                if (mp[s[i]] == start) 		// if the string started from the last seen index of current char
+                {	
+                    start++;
+                } 
+                else if (mp[s[i]] > start) 	// if the starting of current substring is before the last seen index
+                {
+                    start = mp[s[i]] + 1;
+                }
+            }
+            
+            mp[s[i]] = i;			// storing the index of char
+            currMax = max (currMax, i - start);
+        }
+        
+        return currMax + 1;
+    }
+};
+
+/*
+TC = O(n)
+SC = O(n)
+*/
+
+// Solution 2 : 
 
 int lengthOfLongestSubstring(string s) {
 	int maxSoFar = 0, i, start = 0, longString = 0, len = s.length();
