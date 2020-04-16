@@ -52,31 +52,19 @@ SC = O(1)
 // recursively
 class Solution {
 public:
-    ListNode* head1 = NULL;                     // declaring a global variable head1
-    ListNode* reverse(ListNode *head) {
-        if (!head -> next) {                     // if we are at the last node
-            head1 = head;
+    ListNode* reverseList(ListNode* head) {
+        if (!head || !head -> next) {               // if head and next of head if null
             return head;
         }
-
-        ListNode * p = head;
-        ListNode *temp = reverse(p -> next);    // calling the reverse function on next of p
-        temp -> next = p;                       // temp is the next node of p, hence saving p in the next of it
-        p -> next = NULL;                       // making the next of p NULL
         
-        return p;
-    }
-
-    ListNode* reverseList(ListNode* head) {
-        if (!head || !head->next)                // if either list is empty or there is only one element
-            return head;
+        ListNode * temp = reverseList(head -> next);// calling reverseList on next of current node
         
-        reverse(head);
+        head -> next -> next = head;                // saving the current node in the next of next
+        head -> next = NULL;                        // saving the null in current
         
-        return head1;                           // returning head1, declared globally
+        return temp;                                // return the new head
     }
 };
-
 /*
 TC = O(n)       where n is the length of the linked list
 SC = O(n)
