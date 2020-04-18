@@ -151,7 +151,6 @@ public:
             ptrA = (ptrA) ? ptrA -> next : headB;
             ptrB = (ptrB) ? ptrB -> next : headA;
         }
-        cout<<ptr -> val;
         return ptrA;
     }
 };

@@ -22,16 +22,12 @@ public:
         map<int, int>myMap;
         vector <int> ans;
         for (i = 0; i < n; i++) {
-            myMap[nums[i]] = i;                 // saving the index of all numbers
-        }
-        
-        for (i = 0; i < n; i++) {
-            int x = myMap[target - nums[i]];    // index of the required value
-            if(x && x!=i) {                     // if there exist the index in map and index not equal to i
+            if (myMap[target - nums[i]]) {
                 ans.push_back(i);
-                ans.push_back(x);
+                ans.push_back(myMap[target - nums[i]]);
                 return ans;
             }
+            myMap[nums[i]] = i;                 // saving the index of all numbers
         }
         return ans;
     }
