@@ -24,6 +24,8 @@ Note: The length of path between two nodes is represented by the number of edges
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+// Solution 1: Calculating height seperately
 class Solution {
 public:
     int height = 0;
@@ -58,3 +60,38 @@ public:
 TC = O(n ^ 2)
 SC = O(n ^ 2)
 */
+
+//Solution 2 : Calculating the answer while calculating the height
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int ans = 0;                                                // Global Variable to track the diameter
+    int diameterOfBinaryTree(TreeNode* root) {
+        ans = 1;
+        
+        findDiameter(root);
+        
+        return ans - 1;
+    }
+    
+    int findDiameter(TreeNode* root) {
+        if (! root) {
+            return 0;
+        }
+        
+        int leftDiameter = findDiameter(root -> left);          // calculating on the left node
+        int rightDiameter = findDiameter(root -> right);        // calculating on the right node
+        
+        ans = max (ans, leftDiameter + rightDiameter + 1);      // the diamater is the max of current answer and current diameter
+        
+        return 1 + max (leftDiameter, rightDiameter);           // height of the current node
+    }
+};

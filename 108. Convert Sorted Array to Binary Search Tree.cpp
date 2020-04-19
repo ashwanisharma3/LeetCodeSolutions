@@ -57,3 +57,56 @@ SC = O(n ^ 2)
 */
 
 // Iterative Solution
+
+// Approach is to save in stack the node in which the value is to be inserted, and the low and high,
+// by which we will calculate the mid and that will be the value inserted 
+class Solution {
+public:
+    struct info {                                   // structure to store information in stack
+        int low;
+        int high;
+        TreeNode *node;
+        info(int x, int y, TreeNode* p) : low(x), high(y), node(p) {};
+    };
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        int low = 0, high = nums.size() - 1, mid;
+        
+        if (high < 0) {                             // if there is no element in the vector
+            return NULL;
+        }
+        
+        stack<info> s;
+        
+        TreeNode* root = new TreeNode(0);           // root of the tree
+        
+        s.push(info(0, high, root));
+        
+        while (!s.empty()) {
+            
+            info temp = s.top();
+            
+            low = temp.low;
+            high = temp.high;
+            TreeNode *node = temp.node;
+            
+            s.pop();
+            
+            mid = low + ceil((high - low) / 2.0);
+            
+            node -> val = nums[mid];
+            
+            if (low < mid) {
+                node -> left = new TreeNode(0);
+                s.push(info(low, mid - 1, node -> left));
+            }
+            
+            if(mid < high) {
+                node -> right = new TreeNode(0);
+                s.push(info(mid + 1, high, node -> right));
+            }
+        }
+        
+        return root;
+
+    }
+};
