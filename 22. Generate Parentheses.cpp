@@ -14,29 +14,27 @@ For example, given n = 3, a solution set is:
 ]
 */
 
-
 class Solution {
 public:
-    vector<string> ans;                                 // global vector for final answer.
     vector<string> generateParenthesis(int n) {
-        string s;
-        generateString(n, n, s);
+        vector<string> ans;                   // answer vector
+        
+        generateString(n, n, "", ans);
         return ans;
     }
-    
-    void generateString(int open, int close, string s) {// open is number of OPEN parenthesis, left to be inserted in the string s.
-                                                        // close is number of CLOSE parenthesis, left to be inserted in the string s.
-        if(!close) {                                    // if there is no more CLOSE parenthesis left, 
-            ans.push_back(s);                           // end the string and push into the ans vector.
-            return;
+       
+    void generateString (int openB, int closeB, string s, vector<string> &ans) {    // openB denotes the number of open bracket yet to be inserted
+                                                                                    // openB denotes the number of open bracket yet to be inserted
+        if (!openB && !closeB) {              // if none of the open or close bracket left
+            ans.push_back(s);
         }
         
-        if(open) {                                      // if there exists OPEN parenthesis to be inserted
-            generateString(open - 1, close, s +'(');    // adding '(' to the string, decreasing OPEN by 1
+        if (openB) {                          // if open brackets can be inserted
+            generateString(openB - 1, closeB, s + '(', ans);
         }
         
-        if(close > open) {                              // number of CLOSE parenthesis left can't be less than OPEN
-            generateString(open, close - 1, s +')');    // // adding ')' to the string, decreasing CLOSE by 1
+        if (openB < closeB) {                 // right bracket can only be inserted when there are more open brackets
+            generateString(openB, closeB - 1, s + ')', ans);
         }
     }
 };
