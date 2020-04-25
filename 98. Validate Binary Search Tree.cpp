@@ -51,6 +51,30 @@ public:
         if(root->val < mn || root->val > mx)                        // if the BST constraint is not followed
             return false;
         long long int t1 = root->val, t2 = root->val;
-        return check(root->left, mn, t1-1) and check(root->right, t2+1, mx); // checking for left and right child
+        return check(root->left, mn, t1-1) 
+            && check(root->right, t2+1, mx); // checking for left and right child
     }
+};
+
+// Recursive Solution with only TreeNode as parameter
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        isValid (root, NULL, NULL);
+    }
+    
+    bool isValid (TreeNode * root, TreeNode * lower, TreeNode * upper) {
+        if (!root) 
+            return true;
+        
+        if (lower && lower -> val >= root -> val)
+            return false;
+        
+        if (upper && upper -> val <= root -> val)
+            return false;
+        
+        return isValid (root -> left, lower, root) 
+            && isValid (root -> right, root, upper);
+    }
+    
 };

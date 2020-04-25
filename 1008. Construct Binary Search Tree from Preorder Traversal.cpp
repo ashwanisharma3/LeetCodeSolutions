@@ -53,4 +53,25 @@ public:
 };
 
 
-// 
+// Solution 2 Iterative
+
+class Solution {
+public:
+    int i = 0;
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        return constructBST(preorder, INT_MAX);
+    }
+    
+    TreeNode* constructBST (vector<int>& preorder, int parent) {
+        if (i == preorder.size() || preorder[i] > parent) {
+            return NULL;
+        }
+        
+        TreeNode *curr = new TreeNode(preorder[i++]);
+        
+        curr -> left = constructBST(preorder, curr -> val);
+        curr -> right = constructBST(preorder, parent);
+        
+        return curr;
+    }
+};
