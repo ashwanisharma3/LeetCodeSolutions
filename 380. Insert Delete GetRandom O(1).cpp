@@ -38,15 +38,17 @@ randomSet.getRandom();
 class RandomizedSet {
 public:
     /** Initialize your data structure here. */
-    set<int> st;
+    map<int, int> mp;
+    vector<int> v;
     RandomizedSet() {
         
     }
     
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     bool insert(int val) {
-        if (st.find(val) == st.end()) {
-            st.insert(val);
+        if (mp.find(val) == mp.end()) {
+            v.push_back(val);
+            mp[val] = v.size() - 1;
             return true;
         }
         return false;
@@ -54,8 +56,11 @@ public:
     
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     bool remove(int val) {
-        if (st.find(val) != st.end()) {
-            st.erase(st.find(val));
+        if (mp.find(val) != mp.end()) {
+            v[mp[val]] = v.back();
+            mp[v.back()] = mp[val];
+            v.pop_back();
+            mp.erase(val);
             return true;
         }
         return false;
@@ -63,13 +68,7 @@ public:
     
     /** Get a random element from the set. */
     int getRandom() {
-        int x = rand() % st.size();
-        auto it = st.begin();
-        
-        while(x--) {
-            it ++;
-        }
-        return *it;
+        return v[rand() % v.size()];
     }
 };
 

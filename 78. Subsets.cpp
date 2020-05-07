@@ -20,6 +20,7 @@ Output:
   []
 ]
 */
+// Using Back Tracking
 
 class Solution {
 public:
@@ -39,5 +40,41 @@ public:
             findSubset(nums, i + 1, temp, ans);
             temp.pop_back();
         }
+    }
+};
+
+// Using Bit Masking
+// We are using the binary form of a the decimal number.
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> temp;
+        int i, len = nums.size();
+        
+        for(i = pow(2, len); i < pow(2, len + 1); i++) {
+            string s = toBinary(i);
+            for (int j = 0; j < s.size() - 1; j++) {
+                if (s[j] == '1')
+                    temp.push_back(nums[j]);
+            }
+            ans.push_back(temp);
+            temp.clear();
+        }
+        return ans;
+    }
+    
+    string toBinary (int n) {
+        string ans = "";
+        
+        while (n) {
+            if (n % 2) {
+                ans += "1";
+            } else
+                ans += "0";
+            
+            n /= 2;
+        }
+        return ans;
     }
 };
