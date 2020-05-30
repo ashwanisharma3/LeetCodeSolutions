@@ -26,7 +26,7 @@ coordinates contains no duplicate point.
 
 /*
 TC = O(n)
-SC = O(2)
+SC = O(1)
 */
 
 class Solution {
